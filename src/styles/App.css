@@ -1,13 +1,16 @@
 /* Base Application Styles */
-html,body {
+
+html, body {
   width: 100%;
   height: 100%;
   background: #222;
 }
-.app{
+
+.app {
   width: 100%;
   height: 100%;
 }
+
 .index {
   position: relative;
   width: 100%;
@@ -21,7 +24,28 @@ html,body {
   overflow: hidden;
   background: #ddd;
 }
-.controller-nav{
+.img-figure {
+  width: 320px;
+  height: 360px;
+  padding: 40px;
+  margin: 0;
+  box-sizing: border-box;
+  background: #fff;
+  position: absolute;
+}
+.img-figure>img{
+  width: 100%;
+  height: 87%;
+}
+.img-figure figcaption {
+  text-align: center;
+}
+.img-title {
+  margin: 15px 0 0 0;
+  color: #a7a0a2;
+  font-size: 16px;
+}
+.controller-nav {
   position: absolute;
   left: 0;
   bottom: 30px;
