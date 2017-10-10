@@ -21,6 +21,7 @@ html, body {
   position: relative;
   width: 100%;
   height: 100%;
+  perspective: 1800px;
   overflow: hidden;
   background: #ddd;
 }
@@ -32,6 +33,13 @@ html, body {
   box-sizing: border-box;
   background: #fff;
   position: absolute;
+  cursor: pointer;
+  transform-origin: 0 0;
+  transform-style: preserve-3d;
+  transition: transform .6s ease-in-out, left .6s ease-in-out, top .6s ease-in-out;
+}
+.img-figure.isInverse {
+  transform: translate(320px)  rotateY(180deg);
 }
 .img-figure>img{
   width: 100%;
@@ -40,6 +48,26 @@ html, body {
 .img-figure figcaption {
   text-align: center;
 }
+.img-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 50px 40px;
+  overflow: auto;
+  color: #a7a0a2;
+  font-size: 22px;
+  line-height: 1.25;
+  text-align: center;
+  background-color: #fff;
+  box-sizing: border-box;
+  /*先开始时.img-back，旋转了180度，因为translateZ(1px)，位于正面图像的下方*/
+  /*当.img-figure旋转时，.img-back又旋转了180度，旋转度数为360,因为translateZ(1px)，位于正面图像的上方*/
+  transform: rotateY(180deg) translateZ(1px);
+}
+
+
 .img-title {
   margin: 15px 0 0 0;
   color: #a7a0a2;
@@ -52,4 +80,34 @@ html, body {
   z-index: 100;
   width: 100%;
   text-align: center;
+}
+.controller-unit {
+  display: inline-block;
+  margin: 0 5px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #aaa;
+  border-radius: 50%;
+  transform: scale(0.5);
+  transition: transform .6s ease-in-out,background-color .3s;
+}
+.controller-unit.is-center {
+  transform: scale(1);
+  background-color: #888;
+}
+.controller-unit.is-center::after {
+  color: #fff;
+  /*font-family: "icons-turn-arrow";*/
+  content: "♂";
+  line-height: 30px;
+  font-size: 80%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+controller-unit.is-center.is-inverse {
+  background-color: #555;
+  transform: rotateY(180deg);
 }
