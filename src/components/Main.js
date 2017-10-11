@@ -29,12 +29,28 @@ function getRangeRandom(low,high) {
  // 控制按钮组件
  class ControllerUnit extends React.Component {
    handleClick(e) {
+     if (this.props.arrange.isCenter) {
+       this.props.inverse()
+     }else{
+       this.props.center();
+     }
      e.stopPropagation();
      e.preventDefault();
    }
    render() {
+     let controllerUnitClassName = 'controller-unit';
+
+     //  如果对应的是居中的图片，显示控制按钮的居中态
+     if(this.props.arrange.isCenter) {
+       controllerUnitClassName += ' is-center';
+       //  如果同时对应的是翻转图片，显示控制按钮的翻转态
+       if(this.props.arrange.isInverse) {
+         controllerUnitClassName += ' is-inverse';
+       }
+     }
+
      return (
-       <span className = "controller-unit" onClick={this.handleClick}></span>
+       <span className = {controllerUnitClassName} onClick={this.handleClick.bind(this)}></span>
      )
    }
  }
@@ -144,7 +160,7 @@ class AppComponent extends React.Component {
         vPosRangeX = vPosRange.x,
 
         imgsArrangeTopArr = [],
-        topImgNum = Math.ceil(Math.random()*2),
+        topImgNum = Math.floor(Math.random()*2),
         // 取一个或者不取
         topImgSpliceIndex = 0,
         imgsArrangeCenterArr = imgsArrangeArr.splice(centerIndex,1);
@@ -255,9 +271,9 @@ class AppComponent extends React.Component {
           isCenter:false
         }
       }
-      ImgFigures.push(<ImgFigure key={value.fileName} data ={value} ref={'imgFigure'+index} arrange={this.state.imgsArrangeArr[index]}  inverse ={this.inverse(index)} center={this.center(index)}/>)
+      ImgFigures.push(<ImgFigure key={index} data ={value} ref={'imgFigure'+index} arrange={this.state.imgsArrangeArr[index]}  inverse ={this.inverse(index)} center={this.center(index)}/>)
 
-      controllerUnits.push(<ControllerUnit  key={value.fileName}/>)
+      controllerUnits.push(<ControllerUnit  key={index} arrange={this.state.imgsArrangeArr[index]}  inverse ={this.inverse(index)} center={this.center(index)}/>)
     }.bind(this));
 
     return (
